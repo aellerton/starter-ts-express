@@ -1,0 +1,23 @@
+{
+  "name": "starter-ts-express",
+  "version": "1.0.0",
+  "description": "Simple express server that rebuilds and restarts on changes",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf ./dist && webpack --config webpack.config.js --mode development"
+  },
+  "devDependencies": {
+    "@types/webpack": "^4.4.26",
+    "ts-loader": "^5.3.3",
+    "tslint": "^5.15.0",
+    "typescript": "^3.4.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "@types/express": "^4.16.1",
+    "express": "^4.16.4"
+  }
+}
