@@ -15,16 +15,30 @@ Automatic restart-on-change functionality is achieved by running two separate pr
 2. In another terminal, use `node-dev` to run the server then restart when `dist` content changes
    (which it will do when the `yarn build --watch` process rebuilds):
 
+        yarn serve
+
+   That just runs this:
+
         node-dev --no-notify ./dist/server.js
 
-Then invoke the API at http://localhost:8100/
+Try invoking the API to see if it works:
 
-An easy way to test if it's working is to edit `src/app.ts`, e.g. a small change to the
-output returned by the API call. Save the change, wait a second and then reload the URL
-above, and it should "just work".
+    $ curl http://localhost:8100/
+    Hello world at Sun Apr 14 2019 10:37:28 GMT+0800
 
-Note: you'll need `node-dev` installed for this to work. One way is to install globally, like this:
+Try making a trivial change to `src/app.ts` and see that all you need to do is save the file
+and the tools rebuild and restart the server. For example:
 
-    npm install -g node-dev
+    $ git diff src/app.ts
+    diff --git a/src/app.ts b/src/app.ts
+    ...
+      app.get('/', (req, res) => {
+    -   res.send(`Hello world at ${new Date()}`)
+    +   res.send(`Hi world at ${new Date()}`)
+      })
 
-but it's possible (probable?) that installing `node-dev` in this tree only is all that's necessary.
+The new change should be visible immediately:
+
+    $ curl http://localhost:8100/
+    Hi world at Sun Apr 14 2019 10:38:26 GMT+0800
+
