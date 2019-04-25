@@ -21,6 +21,7 @@ module.exports = {
     alias: {
       '@': sourcePath
     },
+    // modules: [sourcePath, "node_modules"],
     extensions: [
       '.js',
       '.vue',

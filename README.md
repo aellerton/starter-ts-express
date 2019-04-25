@@ -1,5 +1,14 @@
 # starter-ts-express
 
+## TL;DR
+
+    yarn install        # First time only
+    yarn build --watch  # Builds dist dir and rebuilds on change
+    yarn serve          # In another terminal, runs the server and reuns on change
+    yarn test --watch   # Runs tests and reruns on change
+
+## Details
+
 Simple typescript express server that rebuilds and restarts on changes
 
 First time setup:
@@ -42,3 +51,14 @@ The new change should be visible immediately:
     $ curl http://localhost:8100/
     Hi world at Sun Apr 14 2019 10:38:26 GMT+0800
 
+Run tests and exit with:
+
+    yarn test
+
+Run tests and rerun when files change with:
+
+    yarn test --watch
+
+or, identically:
+
+    yarn test:watch

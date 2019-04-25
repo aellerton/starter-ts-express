@@ -7,15 +7,17 @@
   "scripts": {
     "build": "rm -rf ./dist && webpack --config webpack.config.js --mode development",
     "serve": "node-dev --no-notify ./dist/server.js",
-    "test": "mocha-webpack --recursive --webpack-config webpack.config.js --mode development 'tests/unit/**/*.spec.ts'",
+    "test": "mocha-webpack --recursive --webpack-config webpack.config.js --mode development 'src/**/*.spec.ts' 'tests/unit/**/*.spec.ts'",
     "test:watch": "yarn test --watch",
     "dist": "rm -rf ./dist && webpack --config webpack.config.js --mode production"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
+    "@types/chai-http": "^4.2.0",
     "@types/mocha": "^5.2.6",
     "@types/webpack": "^4.4.26",
     "chai": "^4.1.2",
+    "chai-http": "^4.2.1",
     "mocha": "^5.2.0",
     "mocha-webpack": "^2.0.0-beta.0",
     "node-dev": "^3.1.3",
