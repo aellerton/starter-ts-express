@@ -5,9 +5,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf ./dist && webpack --config webpack.config.js --mode development",
+    "build": "webpack --config webpack.config.js --mode development",
     "serve": "node-dev --no-notify ./dist/server.js",
-    "test": "mocha-webpack --recursive --webpack-config webpack.config.js --mode development 'src/**/*.spec.ts' 'tests/unit/**/*.spec.ts'",
+    "test": "mocha-webpack --recursive --webpack-config webpack.config.js --mode development src/**/*.spec.ts tests/unit/**/*.spec.ts",
     "test:watch": "yarn test --watch",
     "dist": "rm -rf ./dist && webpack --config webpack.config.js --mode production"
   },

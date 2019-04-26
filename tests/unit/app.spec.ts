@@ -1,20 +1,20 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../../src/app'; // The "@/app" syntax doesn't work
+import app from '@/app';
 
 chai.use(chaiHttp);
 chai.should();
 
 // These are here just to prove tests without an import work
-describe('Array', function() {
-  describe('#indexOf()', function() {
-    it('should return -1 when the value is not present', function() {
+describe('Array', () => {
+  describe('#indexOf()', () => {
+    it('should return -1 when the value is not present', () => {
       expect([1, 2, 3].indexOf(4)).to.equal(-1);
     });
-    it('should return 0 for first element', function() {
+    it('should return 0 for first element', () => {
       expect([1, 2, 3].indexOf(1)).to.equal(0);
     });
-    it('should return 1 for second element', function() {
+    it('should return 1 for second element', () => {
       expect([1, 2, 3].indexOf(2)).to.equal(1);
     });
   });
@@ -31,6 +31,16 @@ describe('app api', () => {
           res.text.should.match(/^Hello world at/)
           // res.body.should.be.a('object')
           // res.body.should.equal('foo')
+          done()
+        })
+    })
+  })
+  describe('GET /missing', () => {
+    it('should 404', (done) => {
+      chai.request(app)
+        .get('/missing')
+        .end((err, res) => {
+          res.should.have.status(404)
           done()
         })
     })

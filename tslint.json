@@ -4,6 +4,13 @@
     "tslint:recommended"
   ],
   "jsRules": {},
-  "rules": {},
+  "rules": {
+    "quotemark": [true, "single"],
+    "semicolon": [true, "never"],
+    "no-console": {
+      "severity": "warning",
+      "options": ["debug", "info", "time", "timeEnd", "trace"]
+    }
+  },
   "rulesDirectory": []
 }
