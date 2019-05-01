@@ -7,7 +7,7 @@
     yarn serve          # In another terminal, runs the server and reuns on change
     yarn test --watch   # Runs tests and reruns on change
 
-## Details
+## Basic instructions
 
 Simple typescript express server that rebuilds and restarts on changes
 
@@ -62,3 +62,25 @@ Run tests and rerun when files change with:
 or, identically:
 
     yarn test:watch
+
+## The '/' endpoint
+
+The root endpoint returns a text message:
+
+    $ curl http://localhost:8100/
+    Hello world at Sun Apr 14 2019 10:37:28 GMT+0800
+
+The name is an optional query parameter:
+
+    $ curl http://localhost:8100/\?name=Bob
+    Hello Bob at Sun Apr 14 2019 10:39:33 GMT+0800
+
+The endpoint can return JSON:
+
+    $ curl -H "Accept: application/json" http://localhost:8100/\?name=Alice
+    {
+      "name": "Alice",
+      "timestamp": "2019-05-01T13:01:23.430Z",
+      "message": "Hello Alice at Wed May 01 2019 13:01:23 GMT+0000"
+    }
+

@@ -21,9 +21,9 @@ describe('Array', () => {
 })
 
 // This proves that the API defined in the other module can be tested
-describe('app api', () => {
+describe('root api', () => {
   describe('GET /', () => {
-    it('should work', (done) => {
+    it('non-JSON works in simple case', (done) => {
       chai.request(app)
         .get('/')
         .end((err, res) => {
@@ -34,8 +34,59 @@ describe('app api', () => {
           done()
         })
     })
+    it('non-JSON works with name parameter', (done) => {
+      chai.request(app)
+        .get('/?name=Bob')
+        .end((err, res) => {
+          res.should.have.status(200)
+          res.text.should.match(/^Hello Bob at/)
+          done()
+        })
+    })
+    it('non-JSON defaults correctly with a blank name parameter', (done) => {
+      chai.request(app)
+        .get('/?name=%20')
+        .end((err, res) => {
+          res.should.have.status(200)
+          res.text.should.match(/^Hello world at/)
+          done()
+        })
+    })
+    it('non-JSON defaults correctly with a missing name parameter', (done) => {
+      chai.request(app)
+        .get('/?name=')
+        .end((err, res) => {
+          res.should.have.status(200)
+          res.text.should.match(/^Hello world at/)
+          done()
+        })
+    })
+    it('non-JSON works in simple case', (done) => {
+      chai.request(app)
+        .get('/')
+        .accept('json')
+        .end((err, res) => {
+          res.should.have.status(200)
+          res.body.name.should.equal('world')
+          res.body.timestamp.should.not.be.empty
+          res.body.message.should.match(/^Hello world at/)
+          done()
+        })
+    })
+    it('non-JSON works if name passed as parameter', (done) => {
+      chai.request(app)
+        .get('/?name=Lauren')
+        .accept('json')
+        .end((err, res) => {
+          res.should.have.status(200)
+          res.body.name.should.equal('Lauren')
+          res.body.timestamp.should.not.be.empty
+          res.body.message.should.match(/^Hello Lauren at/)
+          done()
+        })
+    })
   })
-  describe('GET /missing', () => {
+  describe('invalid URI', () => {
     it('should 404', (done) => {
       chai.request(app)
         .get('/missing')
