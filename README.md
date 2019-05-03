@@ -75,7 +75,7 @@ The name is an optional query parameter:
     $ curl http://localhost:8100/\?name=Bob
     Hello Bob at Sun Apr 14 2019 10:39:33 GMT+0800
 
-The endpoint can return JSON:
+The endpoint can return JSON by setting the `Accept` header:
 
     $ curl -H "Accept: application/json" http://localhost:8100/\?name=Alice
     {
@@ -84,3 +84,50 @@ The endpoint can return JSON:
       "message": "Hello Alice at Wed May 01 2019 13:01:23 GMT+0000"
     }
 
+## The '/contact' endpoint
+
+The "contact" endpoint sends and receives JSON:
+
+    curl -H "Content-Type: application/json" http://localhost:8100/contact \
+      -d '{"sender": "Alice", "subject": "hey", "message": "line one\nline two"}'
+
+    {
+      "error": [],
+      "ok": true,
+      "timestamp": "2019-05-03T10:48:29.400Z"
+    }
+
+Minimal validation on input data is applied, namely the sender and message body must be non-blank.
+
+Bad input is handled one of two ways:
+
+1. Either a 200 response is returned with "error" set to something, or
+2. A 400 response is returned with "error" set as above.
+
+Example:
+
+    {
+      "error": [
+        {
+          "field": "message",
+          "error": "missing",
+          "msg": "Please enter a value for \"message\" field"
+        }
+      ],
+      "ok": false,
+      "timestamp": "2019-05-03T10:48:01.780Z"
+    }
+
+The caller can choose the latter by setting "fail400" to any truthy value.
+
+The case can be made for both being valid, as "successfully processed bad data" can be interpreted as a
+"200" successful response. Reading MDN for 400, often considered the "bad data" response, suggests that sending
+a 200 with an error message is more sensible:
+
+> 400 Bad Request response status code indicates that the server cannot or will not process the request
+> due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request
+> message framing, or deceptive request routing).
+
+## Logging
+
+Minimal use of "Winston" logging is demonstrated.
